@@ -1,0 +1,11 @@
+[tasks.generate]
+script = [
+    "curl https://developers.kvk.nl/cms/api/uploads/api_zoeken.yaml --create-dirs -o /tmp/kvk/zoeken.yaml",
+    "curl https://developers.kvk.nl/cms/api/uploads/api_basisprofiel.yaml --create-dirs -o /tmp/kvk/basisprofiel.yaml",
+    "curl https://developers.kvk.nl/cms/api/uploads/api_vestigingsprofiel.yaml --create-dirs -o /tmp/kvk/vestigingsprofiel.yaml",
+    "curl https://developers.kvk.nl/cms/api/uploads/naamgeving.yaml --create-dirs -o /tmp/kvk/naamgeving.yaml",
+    "curl https://developers.kvk.nl/cms/api/uploads/api-kms.yaml --create-dirs -o /tmp/kvk/mutatieservice.yaml",
+    "curl https://developers.kvk.nl/cms/api/uploads/api_opendata_basis.yml --create-dirs -o /tmp/kvk/open-data-basis.yaml",
+    "curl https://developers.kvk.nl/cms/api/uploads/hvds_jaarrekeningen.yaml --create-dirs -o /tmp/kvk/open-data-jaarrekeningen.yaml",
+]
+workspace = false

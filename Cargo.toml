@@ -1,0 +1,13 @@
+[workspace]
+members = ["packages/*", "scripts"]
+resolver = "2"
+
+[workspace.package]
+authors = ["Nixy <info@nixy.software>"]
+description = "OpenAPI client for Kamer van Koophandel."
+edition = "2024"
+license = "MIT"
+repository = "https://github.com/NixySoftware/kvk"
+version = "0.1.0"
+
+[workspace.dependencies]

@@ -1,0 +1,13 @@
+{
+    "name": "@nixysoftware/kvk",
+    "description": "Rust OpenAPI client for Kamer van Koophandel.",
+    "author": "Nixy <info@nixy.software>",
+    "repository": "github:NixySoftware/kvk",
+    "license": "MIT",
+    "private": true,
+    "scripts": {},
+    "devDependencies": {
+        "@openapitools/openapi-generator-cli": "^2.27.0",
+        "prettier": "^3.7.4"
+    }
+}
