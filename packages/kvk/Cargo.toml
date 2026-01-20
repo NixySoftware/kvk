@@ -7,3 +7,52 @@ edition.workspace = true
 license.workspace = true
 repository.workspace = true
 version.workspace = true
+
+[package.metadata.docs.rs]
+all-features = true
+
+[features]
+default = ["reqwest/default-tls"]
+bon = ["dep:bon"]
+native-tls = ["reqwest/native-tls"]
+rustls = ["reqwest/rustls"]
+
+all-services = [
+    "basisprofiel",
+    "mutatieservice",
+    "naamgeving",
+    "open-data-basis",
+    "open-data-jaarrekeningen",
+    "vestigingsprofiel",
+    "zoeken",
+]
+basisprofiel = []
+mutatieservice = []
+naamgeving = []
+open-data-basis = []
+open-data-jaarrekeningen = []
+vestigingsprofiel = []
+zoeken = []
+
+[dependencies]
+async-trait = "^0.1"
+bon = { version = "^3.8", optional = true }
+reqwest = { version = "^0.13", default-features = false, features = [
+    "json",
+    "multipart",
+    "stream",
+] }
+reqwest-middleware = { version = "^0.5", features = [
+    "json",
+    "multipart",
+    "query",
+] }
+serde = { version = "^1.0", features = ["derive"] }
+serde_json = "^1.0"
+serde_repr = "^0.1"
+# serde_with = { version = "^3.8", default-features = false, features = [
+#     "base64",
+#     "std",
+#     "macros",
+# ] }
+url = "^2.5"

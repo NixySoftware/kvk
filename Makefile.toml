@@ -7,5 +7,35 @@ script = [
     "curl https://developers.kvk.nl/cms/api/uploads/api-kms.yaml --create-dirs -o /tmp/kvk/mutatieservice.yaml",
     "curl https://developers.kvk.nl/cms/api/uploads/api_opendata_basis.yml --create-dirs -o /tmp/kvk/open-data-basis.yaml",
     "curl https://developers.kvk.nl/cms/api/uploads/hvds_jaarrekeningen.yaml --create-dirs -o /tmp/kvk/open-data-jaarrekeningen.yaml",
+
+    "npx openapi-generator-cli generate -i /tmp/kvk/zoeken.yaml -o packages/kvk-zoeken -g rust --package-name kvk-zoeken --additional-properties=bestFitInt=true,library=reqwest-trait,supportMiddleware=true,topLevelApiClient=true,useBonBuilder=true,useSingleRequestParameter=true",
+    "npx openapi-generator-cli generate -i /tmp/kvk/basisprofiel.yaml -o packages/kvk-basisprofiel -g rust --package-name kvk-basisprofiel --additional-properties=bestFitInt=true,library=reqwest-trait,supportMiddleware=true,topLevelApiClient=true,useBonBuilder=true,useSingleRequestParameter=true",
+    "npx openapi-generator-cli generate -i /tmp/kvk/vestigingsprofiel.yaml -o packages/kvk-vestigingsprofiel -g rust --package-name kvk-vestigingsprofiel --additional-properties=bestFitInt=true,library=reqwest-trait,supportMiddleware=true,topLevelApiClient=true,useBonBuilder=true,useSingleRequestParameter=true",
+    "npx openapi-generator-cli generate -i /tmp/kvk/naamgeving.yaml -o packages/kvk-naamgeving -g rust --package-name kvk-naamgeving --additional-properties=bestFitInt=true,library=reqwest-trait,supportMiddleware=true,topLevelApiClient=true,useBonBuilder=true,useSingleRequestParameter=true",
+    "npx openapi-generator-cli generate -i /tmp/kvk/mutatieservice.yaml -o packages/kvk-mutatieservice -g rust --package-name kvk-mutatieservice --additional-properties=bestFitInt=true,library=reqwest-trait,supportMiddleware=true,topLevelApiClient=true,useBonBuilder=true,useSingleRequestParameter=true",
+    "npx openapi-generator-cli generate -i /tmp/kvk/open-data-basis.yaml -o packages/kvk-open-data-basis -g rust --package-name kvk-open-data-basis --additional-properties=bestFitInt=true,library=reqwest-trait,supportMiddleware=true,topLevelApiClient=true,useBonBuilder=true,useSingleRequestParameter=true",
+    "npx openapi-generator-cli generate -i /tmp/kvk/open-data-jaarrekeningen.yaml -o packages/kvk-open-data-jaarrekeningen -g rust --package-name kvk-open-data-jaarrekeningen --additional-properties=bestFitInt=true,library=reqwest-trait,supportMiddleware=true,topLevelApiClient=true,useBonBuilder=true,useSingleRequestParameter=true",
+
+    "rm -rf packages/kvk/src/zoeken && cp -r packages/kvk-zoeken/src packages/kvk/src/zoeken && mv packages/kvk/src/zoeken/lib.rs packages/kvk/src/zoeken/mod.rs && rm -rf packages/kvk-zoeken",
+    "rm -rf packages/kvk/src/basisprofiel && cp -r packages/kvk-basisprofiel/src packages/kvk/src/basisprofiel && mv packages/kvk/src/basisprofiel/lib.rs packages/kvk/src/basisprofiel/mod.rs && rm -rf packages/kvk-basisprofiel",
+    "rm -rf packages/kvk/src/vestigingsprofiel && cp -r packages/kvk-vestigingsprofiel/src packages/kvk/src/vestigingsprofiel && mv packages/kvk/src/vestigingsprofiel/lib.rs packages/kvk/src/vestigingsprofiel/mod.rs && rm -rf packages/kvk-vestigingsprofiel",
+    "rm -rf packages/kvk/src/naamgeving && cp -r packages/kvk-naamgeving/src packages/kvk/src/naamgeving && mv packages/kvk/src/naamgeving/lib.rs packages/kvk/src/naamgeving/mod.rs && rm -rf packages/kvk-naamgeving",
+    "rm -rf packages/kvk/src/mutatieservice && cp -r packages/kvk-mutatieservice/src packages/kvk/src/mutatieservice && mv packages/kvk/src/mutatieservice/lib.rs packages/kvk/src/mutatieservice/mod.rs && rm -rf packages/kvk-mutatieservice",
+    "rm -rf packages/kvk/src/open_data_basis && cp -r packages/kvk-open-data-basis/src packages/kvk/src/open_data_basis && mv packages/kvk/src/open_data_basis/lib.rs packages/kvk/src/open_data_basis/mod.rs && rm -rf packages/kvk-open-data-basis",
+    "rm -rf packages/kvk/src/open_data_jaarrekeningen && cp -r packages/kvk-open-data-jaarrekeningen/src packages/kvk/src/open_data_jaarrekeningen && mv packages/kvk/src/open_data_jaarrekeningen/lib.rs packages/kvk/src/open_data_jaarrekeningen/mod.rs && rm -rf packages/kvk-open-data-jaarrekeningen",
+
+    "grep -rlZ 'crate::' packages/kvk/src/zoeken | xargs -0 sed -i.bak \"s/crate::/crate::zoeken::/g\"",
+    "grep -rlZ 'crate::' packages/kvk/src/basisprofiel | xargs -0 sed -i.bak \"s/crate::/crate::basisprofiel::/g\"",
+    "grep -rlZ 'crate::' packages/kvk/src/vestigingsprofiel | xargs -0 sed -i.bak \"s/crate::/crate::vestigingsprofiel::/g\"",
+    "grep -rlZ 'crate::' packages/kvk/src/naamgeving | xargs -0 sed -i.bak \"s/crate::/crate::naamgeving::/g\"",
+    "grep -rlZ 'crate::' packages/kvk/src/mutatieservice | xargs -0 sed -i.bak \"s/crate::/crate::mutatieservice::/g\"",
+    "grep -rlZ 'crate::' packages/kvk/src/open_data_basis | xargs -0 sed -i.bak \"s/crate::/crate::open_data_basis::/g\"",
+    "grep -rlZ 'crate::' packages/kvk/src/open_data_jaarrekeningen | xargs -0 sed -i.bak \"s/crate::/crate::open_data_jaarrekeningen::/g\"",
+    "find packages/kvk/src -name '*.bak' -type f -delete",
+
+    "cargo run -p scripts --bin modify",
+    "cargo clippy --all-features --all-targets --fix --allow-dirty",
+    "npx prettier --write .",
+    "cargo fmt",
 ]
 workspace = false
