@@ -4,32 +4,14 @@ on:
     release:
         types: [published]
 
+permissions:
+    contents: read
+    id-token: write
+
 jobs:
     publish:
         name: Publish
-        runs-on: ubuntu-latest
-
-        permissions:
-            contents: read
-            id-token: write
-
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v6
-
-            - name: Set up Rust toolchain
-              uses: actions-rust-lang/setup-rust-toolchain@v1
-
-            - name: Install Cargo Binary Install
-              uses: cargo-bins/cargo-binstall@main
-
-            - name: Install crates
-              run: cargo binstall --force -y cargo-workspaces
-
-            - uses: rust-lang/crates-io-auth-action@v1
-              id: auth
-
-            - name: Publish
-              run: cargo workspaces publish --publish-as-is
-              env:
-                  CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token }}
+        uses: NixySoftware/.github/.github/workflows/publish.yml@9704b92a2cefe90342562266d127a0c9dd132640 # v0.2.0
+        with:
+            enable-rust: true
+            enable-typescript: false
