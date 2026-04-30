@@ -10,55 +10,17 @@ permissions:
     contents: read
 
 jobs:
-    lint:
-        name: Lint
-        runs-on: ubuntu-latest
+    commits:
+        name: Commits
+        uses: NixySoftware/.github/.github/workflows/commits.yml@473618d5365410901e83901c7d7066922a60ef4a # v0.3.1
 
-        env:
-            RUSTFLAGS: '-Dwarnings'
+    rust:
+        name: Rust
+        uses: NixySoftware/.github/.github/workflows/rust.yml@473618d5365410901e83901c7d7066922a60ef4a # v0.3.1
 
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v6
-
-            - name: Set up Rust toolchain
-              uses: actions-rust-lang/setup-rust-toolchain@v1
-              with:
-                  components: clippy, rustfmt
-
-            - name: Install Cargo Binary Install
-              uses: cargo-bins/cargo-binstall@main
-
-            - name: Install crates
-              run: cargo binstall -y --force cargo-deny cargo-machete cargo-sort
-
-            - name: Lint
-              run: cargo clippy --all-features --all-targets --locked
-
-            - name: Check dependencies
-              run: cargo deny check
-
-            - name: Check unused dependencies
-              run: cargo machete --with-metadata
-
-            - name: Check manifest formatting
-              run: cargo sort --workspace --check
-
-            - name: Check formatting
-              run: cargo fmt --all --check
-
-    test:
-        name: Test
-        runs-on: ubuntu-latest
-
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v6
-
-            - name: Set up Rust toolchain
-              uses: actions-rust-lang/setup-rust-toolchain@v1
-              with:
-                  components: clippy, rustfmt
-
-            - name: Test
-              run: cargo test --all-features --all-targets --locked --release
+    typescript:
+        name: TypeScript
+        uses: NixySoftware/.github/.github/workflows/typescript.yml@473618d5365410901e83901c7d7066922a60ef4a # v0.3.1
+        with:
+            enable-lint: false
+            enable-test: false
