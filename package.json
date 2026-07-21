@@ -12,7 +12,7 @@
         "@commitlint/cli": "^20.5.3",
         "@commitlint/config-conventional": "^20.5.3",
         "@openapitools/openapi-generator-cli": "^2.39.0",
-        "license-checker-rseidelsohn": "^4.4.2",
+        "license-checker-rseidelsohn": "^5.0.1",
         "prettier": "^3.7.4"
     }
 }
